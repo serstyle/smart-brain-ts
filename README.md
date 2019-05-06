@@ -10,7 +10,7 @@ Frontend :
 - Typescript
 
 
-live on : *soon*
+live on : https://face-recognize1337.netlify.com/
 
 backend repo : *soon*
 
