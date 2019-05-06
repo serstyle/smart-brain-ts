@@ -19,7 +19,6 @@ class Rank extends React.Component<IProps>{
     }
     else{
       this.generateEmoji(this.props.entries)
-      console.log(prevState.entries, this.props.entries)
     }
     
   }

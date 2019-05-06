@@ -89,7 +89,7 @@ class App extends React.Component<IAppProps, IAppState>{
     this.setState({isPending:true})
     const token:string | null = window.sessionStorage.getItem('token')
     if(token){
-      fetch('http://localhost:3000/signin',{
+      fetch(`${process.env.REACT_APP_DOMAIN}signin`,{
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +104,6 @@ class App extends React.Component<IAppProps, IAppState>{
         }
       })
       .catch(err=>{
-        console.log(err)
         this.setState({isPending:false})})
     }else this.setState({isPending:false})
   }
@@ -124,7 +123,6 @@ class App extends React.Component<IAppProps, IAppState>{
   calculateFaceLocation = (data:any) => {
     // const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image:any = document.getElementById('inputimage');
-    console.log('image', typeof image)
     const width = Number(image.width);
     const height = Number(image.height);
     const faceArr = data.outputs[0].data.regions.map( (face:any) => {
@@ -143,7 +141,7 @@ class App extends React.Component<IAppProps, IAppState>{
   }
 
   getProfileId = (userId:string, token:string, onRouteChange:any, loadUser:any):void =>{
-    fetch(`http://localhost:3000/profile/${userId}`,{
+    fetch(`${process.env.REACT_APP_DOMAIN}profile/${userId}`,{
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
@@ -155,7 +153,6 @@ class App extends React.Component<IAppProps, IAppState>{
       onRouteChange('home')
       loadUser(user)
       this.setState({isPending:false})
-      console.log('get user ' + this.state.user.entries)
     })
   }
 
@@ -170,7 +167,7 @@ class App extends React.Component<IAppProps, IAppState>{
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
     const token:any = window.sessionStorage.getItem('token')
-    fetch('http://localhost:3000/imageurl',
+    fetch(`${process.env.REACT_APP_DOMAIN}imageurl`,
     {
       method: 'POST',
       headers: {
@@ -185,8 +182,8 @@ class App extends React.Component<IAppProps, IAppState>{
     .then(response => response.json())
     .then(response => {
       
-      if (response) {
-        fetch('http://localhost:3000/image', {
+      if (response !== 'unable to work with API') {
+        fetch(`${process.env.REACT_APP_DOMAIN}image`, {
           method: 'put',
           headers: {
             'Content-Type': 'application/json',
@@ -200,12 +197,12 @@ class App extends React.Component<IAppProps, IAppState>{
           .then(count => {
             this.setState({user:{...this.state.user, entries: count}})
           })
-          .catch(console.log)
+          .catch(err => console.log('fail fetch'))
 
       }
       this.displayFaceBox(this.calculateFaceLocation(response))
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log('failed fetch'));
   }
 
   onRouteChange = (route:string):void => {

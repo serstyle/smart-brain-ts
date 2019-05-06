@@ -32,7 +32,7 @@ class Register extends React.Component<IProps> {
 
   onSubmitSignIn = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    fetch('http://localhost:3000/register', {
+    fetch(`${process.env.REACT_APP_DOMAIN}register`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

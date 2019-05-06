@@ -16,7 +16,6 @@ class ProfileIcon extends React.Component<IProps, IState> {
 	}
 
 	toggle = () => {
-		console.log(this.state.dropDownOpen)
 	    this.setState(prevState => ({
 	      dropDownOpen: !prevState.dropDownOpen
 	    }));
@@ -31,7 +30,7 @@ class ProfileIcon extends React.Component<IProps, IState> {
 
 	handleSignout = () =>{
 		const token:any = window.sessionStorage.getItem('token')
-		fetch(`http://localhost:3000/signout`, {
+		fetch(`${process.env.REACT_APP_DOMAIN}signout`, {
 			method:'post',
 			headers:{
 				'Content-Type': 'application/json',

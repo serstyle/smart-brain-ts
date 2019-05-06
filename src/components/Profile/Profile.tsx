@@ -32,7 +32,7 @@ class Profile extends React.Component<IProps>{
 
 	onProfileUpdate = (data:IState):void =>{
 		const token:any = window.sessionStorage.getItem('token')
-		fetch(`http://localhost:3000/profile/${this.props.user.id}`, {
+		fetch(`${process.env.REACT_APP_DOMAIN}profile/${this.props.user.id}`, {
 			method:'post',
 			headers:{'Content-Type': 'application/json',
 			'Authorization': token

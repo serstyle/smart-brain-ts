@@ -27,7 +27,7 @@ class Signin extends React.Component<IProps> {
 
   onSubmitSignIn = (e:React.FormEvent<HTMLFormElement>):void => {
     e.preventDefault()
-    fetch('http://localhost:3000/signin', {
+    fetch(`${process.env.REACT_APP_DOMAIN}signin`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
